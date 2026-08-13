@@ -3,6 +3,7 @@ import HomeLayout from "../Layouts/HomeLayout/HomeLayout";
 import AuthLayout from "../Layouts/AuthLayout/AuthLayout";
 import Error from "../Pages/Error/Error";
 import Home from "../Pages/Home/Home";
+import Booking from "../Pages/Booking/Booking";
 
 const router=createBrowserRouter([
     {
@@ -12,6 +13,10 @@ const router=createBrowserRouter([
             {
                 index:true,
                 Component:Home
+            },
+            {
+                path:'/booking',
+                Component:Booking
             }
         ]
     },
