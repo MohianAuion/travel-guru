@@ -1,9 +1,16 @@
 import React from 'react';
+import Navbar from '../../Components/Navbar/Navbar';
+import { Outlet } from 'react-router';
 
 const AuthLayout = () => {
     return (
         <div>
-            AuthLayout
+        <header>
+            <Navbar light></Navbar>
+        </header>
+        <main>
+            <Outlet></Outlet>
+        </main>
         </div>
     );
 };

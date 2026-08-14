@@ -4,6 +4,8 @@ import AuthLayout from "../Layouts/AuthLayout/AuthLayout";
 import Error from "../Pages/Error/Error";
 import Home from "../Pages/Home/Home";
 import Booking from "../Pages/Booking/Booking";
+import Login from "../Pages/Login/Login";
+import Register from "../Pages/Register/Register";
 
 const router=createBrowserRouter([
     {
@@ -22,7 +24,17 @@ const router=createBrowserRouter([
     },
     {
         path:'/auth',
-        Component:AuthLayout
+        Component:AuthLayout,
+        children:[
+            {
+               index:true,
+                Component:Login
+            },
+            {
+                path:'register',
+                Component:Register
+            }
+        ]
     },
     {
         path:'/*',
