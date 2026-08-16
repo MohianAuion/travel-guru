@@ -1,40 +1,94 @@
-import React, { use } from "react";
+import React, { use, useRef, useState } from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router";
 import AuthContext from "../../Context/AuthContext";
 
 const Login = () => {
+  const { userLogin, loginWithGoogle, resetPassword } = use(AuthContext);
 
-    const {userLogin}=use(AuthContext);
+  
 
-    const handleOnSubmit=e=>{
-        e.preventDefault();
+  const [error, setError] = useState("");
+  const[success, setSuccess]=useState(false);
+  const emailRef=useRef(null);
 
-        const email=e.target.email.value;
-        const password=e.target.password.value;
+
+
+  // handleLogin
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setError("");
+  setSuccess(false);
+
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    userLogin(email, password)
+      .then(() => {
+        setSuccess(true);
+        e.target.reset();
        
+      })
+      .catch((error) => {
+        if (error.code === "auth/invalid-credential") {
+          setError("Email or password is incorrect.");
+        } else if (error.code === "auth/invalid-email") {
+          setError("Please enter a valid email address.");
+        } else if (error.code === "auth/wrong-password") {
+          setError("Incorrect password.");
+        } else if (error.code === "auth/user-disabled") {
+          setError("This account has been disabled.");
+        } else if (error.code === "auth/network-request-failed") {
+          setError("Please check your internet connection.");
+        } else if (error.code === "auth/user-token-expired") {
+          setError("Your session has expired. Please log in again.");
+        } else if (error.code === "auth/user-not-found") {
+          setError("No account found with this email.");
+        } else {
+          setError("Something went wrong. Please try again.");
+        }
+      });
+  };
 
-        userLogin(email, password)
-        .then(result=>{
-            console.log(result.user);
-        })
-        .catch(error=>{
-            console.log(error.message);
-        })
-    }
-    
+  // handle forgot password
+const handleForgotPassword=e=>{
+e.preventDefault();
+const email=emailRef.current.value;
+resetPassword(email)
+.then(()=>{
+  alert("Password reset email sent! Check your inbox to reset your password📧")
+})
+.catch(error=>{
+  console.log(error.message)
+})
+}
+
+
+  // handle google login
+
+  const handleGoogleLogIn = () => {
+    loginWithGoogle()
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => {
+        console.log(error.code);
+      });
+  };
+
   return (
     <div className="w-10/12 mx-auto my-30">
       <div className=" flex justify-center">
         <div className="card bg-base-100 w-4/12 border border-gray-300 rounded-lg">
           <div className="card-body">
-            <form onSubmit={handleOnSubmit}>
+            <form onSubmit={handleLogin}>
               <fieldset className="fieldset">
                 <h1 className="text-3xl font-bold pb-4">Login</h1>
                 <label className="label">Email</label>
                 <input
                   type="email"
+                  ref={emailRef}
                   className="input w-full"
                   placeholder="Email"
                   name="email"
@@ -46,8 +100,22 @@ const Login = () => {
                   placeholder="Password"
                   name="password"
                 />
+                {/* error && success  */}
                 <div>
-                  <a className="link link-hover">Forgot password?</a>
+                  {error && (
+                    <p className="text-red-500 text-xs  font-bold ">{error}</p>
+                  )}
+                  {
+                    success && (
+                      <p className="text-green-500 text-xs  font-bold">you are successfully logged in!</p>
+                    )
+                  }
+                </div>
+                <div>
+                  <button onClick={handleForgotPassword} type="button" className="link link-hover" >
+Forgot password?
+                  </button>
+                  
                 </div>
                 <button className="btn btn-warning mt-4">Login</button>
               </fieldset>
@@ -69,7 +137,7 @@ const Login = () => {
         </div>
       </div>
 
-{/* orrrr */}
+      {/* orrrr */}
       <div className="flex justify-center items-center gap-4 my-5">
         <div className="h-px w-40 bg-gray-400"></div>
 
@@ -79,7 +147,7 @@ const Login = () => {
       </div>
 
       {/* login with google */}
-      <div className="flex justify-center">
+      <div onClick={handleGoogleLogIn} className="flex justify-center">
         <button className="btn btn-neutral btn-outline rounded-full w-90">
           <FcGoogle className="text-xl"></FcGoogle> Continue with Google
         </button>

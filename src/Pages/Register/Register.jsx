@@ -5,8 +5,9 @@ import { Link } from 'react-router';
 import AuthContext from '../../Context/AuthContext';
 
 const Register = () => {
-   const{ createUser}=use(AuthContext);
+   const{ createUser, loginWithGoogle}=use(AuthContext);
 
+  //  handle register
    const handleRegister=e=>{
     e.preventDefault();
 
@@ -22,6 +23,18 @@ const Register = () => {
         console.log(error.message);
     })
    }
+
+  //  handle google login
+
+  const handleGoogleLogin=()=>{
+    loginWithGoogle()
+    .then(result=>{
+      console.log(result.user);
+    })
+    .catch(error=>{
+      console.log(error.message);
+    })
+  }
     
   return (
     <div className="w-10/12 mx-auto my-30">
@@ -104,7 +117,7 @@ const Register = () => {
 
       {/* login with google */}
       <div className="flex justify-center">
-        <button className="btn btn-neutral btn-outline rounded-full w-90">
+        <button onClick={handleGoogleLogin} className="btn btn-neutral btn-outline rounded-full w-90">
           <FcGoogle className="text-xl"></FcGoogle> Continue with Google
         </button>
       </div>

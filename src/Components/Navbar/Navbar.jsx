@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { use } from 'react';
 import logo from '../../assets/logo.png';
 import { Link, NavLink } from 'react-router';
 import { FaSearch } from 'react-icons/fa';
+import AuthContext from '../../Context/AuthContext';
 
 const Navbar = ({light=false}) => {
 
+  const{user, logOut}=use(AuthContext);
 
     const links=<div className={`flex gap-7 font-medium ${light? 'text-black' : 'text-white'}`}>
         <li><NavLink>News</NavLink></li>
@@ -12,6 +14,17 @@ const Navbar = ({light=false}) => {
         <li><NavLink>Blog</NavLink></li>
         <li><NavLink>Contact</NavLink></li>
     </div>
+
+    // handle logout
+    const handleLogOut=()=>{
+      logOut()
+      .then(result=>{
+        console.log(result.user);
+      })
+      .catch(error=>{
+        console.log(error.message);
+      })
+    }
     return (
         <div className="max-w-10/12 mx-auto rounded-md">
   <div className="collapse-title navbar flex justify-between pt-5 ">
@@ -36,7 +49,9 @@ const Navbar = ({light=false}) => {
             links
         }
       </ul>
-      <Link to='/auth' className='btn btn-warning ml-7'>LogIn</Link>
+      {
+        user? <Link onClick={handleLogOut} to='/auth' className='btn btn-warning ml-7'>LogOut</Link>: <Link to='/auth' className='btn btn-warning ml-7'>LogIn</Link>
+      }
       
     </div>
    </div>
