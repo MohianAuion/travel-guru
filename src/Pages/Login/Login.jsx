@@ -1,25 +1,25 @@
 import React, { use, useRef, useState } from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import AuthContext from "../../Context/AuthContext";
+import Loader from "../Loader/Loader";
 
 const Login = () => {
-  const { userLogin, loginWithGoogle, resetPassword } = use(AuthContext);
-
-  
+  const { userLogin, loginWithGoogle, resetPassword, authLoading } =
+    use(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const [error, setError] = useState("");
-  const[success, setSuccess]=useState(false);
-  const emailRef=useRef(null);
-
-
+  const [success, setSuccess] = useState(false);
+  const emailRef = useRef(null);
 
   // handleLogin
   const handleLogin = (e) => {
     e.preventDefault();
     setError("");
-  setSuccess(false);
+    setSuccess(false);
 
     const email = e.target.email.value;
     const password = e.target.password.value;
@@ -27,8 +27,7 @@ const Login = () => {
     userLogin(email, password)
       .then(() => {
         setSuccess(true);
-        e.target.reset();
-       
+        navigate(location.state || "/", { replace: true });
       })
       .catch((error) => {
         if (error.code === "auth/invalid-credential") {
@@ -52,30 +51,45 @@ const Login = () => {
   };
 
   // handle forgot password
-const handleForgotPassword=e=>{
-e.preventDefault();
-const email=emailRef.current.value;
-resetPassword(email)
-.then(()=>{
-  alert("Password reset email sent! Check your inbox to reset your password📧")
-})
-.catch(error=>{
-  console.log(error.message)
-})
-}
-
+  const handleForgotPassword = (e) => {
+    e.preventDefault();
+    const email = emailRef.current.value;
+    resetPassword(email)
+      .then(() => {
+        setError("");
+        alert(
+          "Password reset email sent! Check your inbox to reset your password📧",
+        );
+      })
+      .catch((error) => {
+        if (error.code === "auth/invalid-email") {
+          setError("Please enter a valid email address.");
+        } else if (error.code === "auth/user-not-found") {
+          setError("No account found with this email.");
+        } else if (error.code === "auth/network-request-failed") {
+          setError("Please check your internet connection.");
+        } else {
+          setError("Something went wrong. Please try again.");
+        }
+      });
+  };
 
   // handle google login
 
   const handleGoogleLogIn = () => {
     loginWithGoogle()
-      .then((result) => {
-        console.log(result.user);
+      .then(() => {
+        setError("");
       })
-      .catch((error) => {
-        console.log(error.code);
+      .catch(() => {
+        setError("Unable to login with Google. Please try again.");
       });
   };
+
+  //  loading
+  if (authLoading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <div className="w-10/12 mx-auto my-30">
@@ -92,6 +106,7 @@ resetPassword(email)
                   className="input w-full"
                   placeholder="Email"
                   name="email"
+                  required
                 />
                 <label className="label">Password</label>
                 <input
@@ -105,17 +120,20 @@ resetPassword(email)
                   {error && (
                     <p className="text-red-500 text-xs  font-bold ">{error}</p>
                   )}
-                  {
-                    success && (
-                      <p className="text-green-500 text-xs  font-bold">you are successfully logged in!</p>
-                    )
-                  }
+                  {success && (
+                    <p className="text-green-500 text-xs  font-bold">
+                      you are successfully logged in!
+                    </p>
+                  )}
                 </div>
                 <div>
-                  <button onClick={handleForgotPassword} type="button" className="link link-hover" >
-Forgot password?
+                  <button
+                    onClick={handleForgotPassword}
+                    type="button"
+                    className="link link-hover"
+                  >
+                    Forgot password?
                   </button>
-                  
                 </div>
                 <button className="btn btn-warning mt-4">Login</button>
               </fieldset>
@@ -126,6 +144,7 @@ Forgot password?
                   Don't have any account?{" "}
                   <Link
                     to="/auth/register"
+                    state={location.state}
                     className="text-yellow-500 font-bold"
                   >
                     Create an Account

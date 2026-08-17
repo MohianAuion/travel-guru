@@ -8,11 +8,14 @@ const googleProvider=new GoogleAuthProvider();
 const AuthProvider = ({children}) => {
 
     const[user, setUser]=useState(null);
+    const[loading, setLoading]=useState(true);
+    const[authLoading, setAuthLoading]=useState(false);
 
     // setCurrentUser
     useEffect(()=>{
      const unsubscribe=onAuthStateChanged(auth, (currentUser)=>{
 setUser(currentUser);
+setLoading(false);
         })
         return ()=>{
             unsubscribe();
@@ -21,12 +24,19 @@ setUser(currentUser);
 
     // createUserWithEmailAndPassword
     const createUser=(email, password)=>{
-        return createUserWithEmailAndPassword(auth, email, password);
+       setAuthLoading(true);
+        return createUserWithEmailAndPassword(auth, email, password).finally(()=>{
+           setAuthLoading(false);
+        })
     }
 
     // signInWithEmailAndPassword
     const userLogin=(email, password)=>{
-        return signInWithEmailAndPassword(auth, email, password);
+        setAuthLoading(true);
+        return signInWithEmailAndPassword(auth, email, password).finally(()=>{
+            setAuthLoading(false);
+        })
+        
     }
 
     // sendPasswordResetEmail
@@ -36,18 +46,26 @@ setUser(currentUser);
 
     // sign in with google
     const loginWithGoogle=()=>{
-        return signInWithPopup(auth, googleProvider);
+        setAuthLoading(true);
+        return signInWithPopup(auth, googleProvider).finally(()=>{
+            setAuthLoading(false);
+        })
     }
 
     // logOut
 const logOut=()=>{
-    return signOut(auth);
+    setAuthLoading(true);
+    return signOut(auth).finally(()=>{
+        setAuthLoading(false);
+    })
 }
     
 
 
     const authData={
         user,
+        loading,
+        authLoading,
         createUser,
         userLogin,
         loginWithGoogle,

@@ -1,26 +1,66 @@
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
 import { FaFacebook } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import AuthContext from '../../Context/AuthContext';
+import Loader from '../Loader/Loader';
 
 const Register = () => {
-   const{ createUser, loginWithGoogle}=use(AuthContext);
+   const{ createUser, loginWithGoogle, authLoading}=use(AuthContext);
+const location=useLocation();
+console.log(location)
+const navigate=useNavigate();
+
+   const[success, setSuccess]=useState(false);
+   const[error, setError]=useState("");
 
   //  handle register
    const handleRegister=e=>{
     e.preventDefault();
 
+    setSuccess(false);
+    setError("");
+
     const email=e.target.email.value;
     const password=e.target.password.value;
-    console.log(email, password)
+
+    const passwordLength = /^.{8,}$/;
+    const passwordCase = /^(?=.*[A-Z])(?=.*[a-z]).{8,}$/;
+    const specialChar = /[!@#$%^&*]/;
+
+    if(!passwordLength.test(password)){
+      setError("Password must be at least 8 characters long.");
+      return;
+    }
+    else if(!passwordCase.test(password)){
+      setError("Password must be at least 8 characters and contain at least one uppercase and one lowercase letter.");
+      return;
+    }
+    else if(!specialChar.test(password)){
+      setError("Password must contain at least one special character.");
+      return;
+    }
+  
 
     createUser(email, password)
-    .then(result=>{
-        console.log(result.user);
+    .then(()=>{
+       setSuccess(true);
+      navigate(location.state || "/", {replace: true})
+
     })
     .catch(error=>{
-        console.log(error.message);
+       if(error.code==="auth/email-already-in-use"){
+        setError("An account already exists with this email.");
+       }
+       else if(error.code==="auth/invalid-email"){
+        setError("Please enter a valid email address.")
+       }
+       else if(error.code==="auth/network-request-failed"){
+        setError("Please check your internet connection.");
+       }
+       else{
+        setError("Unable to create your account. Please try again.");
+       }
     })
    }
 
@@ -28,14 +68,19 @@ const Register = () => {
 
   const handleGoogleLogin=()=>{
     loginWithGoogle()
-    .then(result=>{
-      console.log(result.user);
+    .then(()=>{
+      setError("");
     })
-    .catch(error=>{
-      console.log(error.message);
+    .catch(()=>{
+      setError("Unable to login with Google. Please try again.");
     })
   }
-    
+   
+  // loading
+  if(authLoading){
+    return <Loader></Loader>
+  }
+  
   return (
     <div className="w-10/12 mx-auto my-30">
       <div className=" flex justify-center">
@@ -86,14 +131,31 @@ const Register = () => {
                   name="confirmPassword" required
                 />
                 
+              <div>
+                {
+                    success && (
+                      <p className="text-green-500 text-xs  font-bold">Your account has been created successfully!</p>
+                    )
+                  }
+                  {
+                    error && (
+                      <p className='text-red-500 text-xs  font-bold'>
+                        {error}
+                      </p>
+                    )
+                  }
+              </div>
+                
                 <button className="btn btn-warning mt-4">Create Account</button>
               </fieldset>
 
-              {/* go to register */}
+
+              {/* go to login */}
               <div className="text-center pt-4">
                 <p className="font-medium">
                  Already have an account?{" "}
                   <Link
+                  state={location.state}
                     to="/auth"
                     className="text-yellow-500 font-bold"
                   >
