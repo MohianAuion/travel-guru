@@ -80,6 +80,8 @@ const Login = () => {
     loginWithGoogle()
       .then(() => {
         setError("");
+        navigate(location.state || '/',{replace:true})
+         
       })
       .catch(() => {
         setError("Unable to login with Google. Please try again.");
