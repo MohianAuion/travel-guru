@@ -3,17 +3,18 @@ import logo from '../../assets/logo.png';
 import { Link, NavLink } from 'react-router';
 import { FaSearch } from 'react-icons/fa';
 import AuthContext from '../../Context/AuthContext';
+import './Navbar.css'
 
 const Navbar = ({light=false}) => {
 
   const{user, logOut}=use(AuthContext);
  
 
-    const links=<div className={`flex gap-7 font-medium ${light? 'text-black' : 'text-white'}`}>
-        <li><NavLink>News</NavLink></li>
-        <li><NavLink>Destination</NavLink></li>
-        <li><NavLink>Blog</NavLink></li>
-        <li><NavLink>Contact</NavLink></li>
+    const links=<div className={`flex gap-10 font-medium ${light? 'text-black' : 'text-white'}`}>
+        <li className='hover:font-bold'><Link to='/'>Home</Link></li>
+        <li className='hover:font-bold'><NavLink to='/destination'>Destination</NavLink></li>
+        <li className='hover:font-bold'><NavLink to='blog'>Blog</NavLink></li>
+        <li className='hover:font-bold'><NavLink to='/contact'>Contact</NavLink></li>
     </div>
 
     // handle logout
@@ -50,7 +51,7 @@ const Navbar = ({light=false}) => {
 {/* links */}
    
    <div>
-       <ul className="menu menu-horizontal px-1 ">
+       <ul>
         {
             links
         }

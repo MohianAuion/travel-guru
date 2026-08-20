@@ -7,6 +7,7 @@ import Booking from "../Pages/Booking/Booking";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
+import Contact from "../Pages/Contact/Contact";
 
 const router=createBrowserRouter([
     {
@@ -28,6 +29,11 @@ const router=createBrowserRouter([
             }
         ]
     },
+    
+            {
+                path:'/contact',
+                Component:Contact
+            },
     {
         path:'/auth',
         Component:AuthLayout,
