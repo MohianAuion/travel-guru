@@ -24,31 +24,51 @@ const Booking = () => {
 
       {/* Booking Form */}
       <div className="bg-white rounded-sm p-4 w-[300px]">
-        {/* Origin */}
-        <div className="mb-3">
-          <label className="block text-[10px] text-gray-500 mb-1">Origin</label>
+
+{/* name */}
+        <label className="block text-[10px] text-gray-500 mb-1">Name</label>
 
           <input
             type="text"
-            value="Dhaka"
+           placeholder="type your name"
             readOnly
             className="w-full h-8 bg-gray-100 rounded-sm px-3 text-[11px] font-semibold text-black outline-none"
           />
-        </div>
+
+          {/* email */}
+           <label className="block text-[10px] text-gray-500 mb-1">Email</label>
+
+          <input
+            type="text"
+           placeholder="enter your email"
+            readOnly
+            className="w-full h-8 bg-gray-100 rounded-sm px-3 text-[11px] font-semibold text-black outline-none"
+          />
+
+          {/* location */}
+           <label className="block text-[10px] text-gray-500 mb-1">Location</label>
+
+          <input
+            type="text"
+           placeholder="your location"
+            readOnly
+            className="w-full h-8 bg-gray-100 rounded-sm px-3 text-[11px] font-semibold text-black outline-none"
+          />
+      
 
         {/* Destination */}
-        <div className="mb-3">
+       
           <label className="block text-[10px] text-gray-500 mb-1">
             Destination
           </label>
 
           <input
             type="text"
-            value="Cox's Bazar"
+            value="Select your Destination"
             readOnly
             className="w-full h-8 bg-gray-100 rounded-sm px-3 text-[11px] font-semibold text-black outline-none"
           />
-        </div>
+        
 
         {/* From and To */}
         <div className="flex gap-2 mb-3">
@@ -91,7 +111,7 @@ const Booking = () => {
 
         {/* Booking Button */}
         <button className="w-full h-8 bg-orange-400 hover:bg-orange-500 rounded-sm text-black text-[10px] font-medium">
-          Start Booking
+          Confirm Booking
         </button>
       </div>
     </div>

@@ -12,8 +12,8 @@ const Navbar = ({light=false}) => {
 
     const links=<div className={`flex gap-10 font-medium ${light? 'text-black' : 'text-white'}`}>
         <li className='hover:font-bold'><Link to='/'>Home</Link></li>
-        <li className='hover:font-bold'><NavLink to='/destination'>Destination</NavLink></li>
-        <li className='hover:font-bold'><NavLink to='blog'>Blog</NavLink></li>
+        <li className='hover:font-bold'><NavLink to='/destinations'>Destinations</NavLink></li>
+        <li className='hover:font-bold'><NavLink to='/about'>About Us</NavLink></li>
         <li className='hover:font-bold'><NavLink to='/contact'>Contact</NavLink></li>
     </div>
 

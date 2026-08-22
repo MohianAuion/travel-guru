@@ -8,50 +8,59 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import Contact from "../Pages/Contact/Contact";
+import About from "../Pages/About/About";
+import Destinations from "../Pages/Destinations/Destinations";
 
-const router=createBrowserRouter([
-    {
-        path:'/',
-        Component:HomeLayout,
-        children:[
-            {
-                index:true,
-                Component:Home
-            },
-            {
-                path:'/booking',
-                element:(
-                    <PrivateRoute>
-                        <Booking></Booking>
-                    </PrivateRoute>
-                )
-                
-            }
-        ]
-    },
-    
-            {
-                path:'/contact',
-                Component:Contact
-            },
-    {
-        path:'/auth',
-        Component:AuthLayout,
-        children:[
-            {
-               index:true,
-                Component:Login
-            },
-            {
-                path:'register',
-                Component:Register
-            }
-        ]
-    },
-    {
-        path:'/*',
-      Component:Error
-    }
+const router = createBrowserRouter([
+  {
+    path: "/",
+    Component: HomeLayout,
+    children: [
+      {
+        index: true,
+        Component: Home,
+      },
+      {
+        path: "/booking",
+        element: (
+          <PrivateRoute>
+            <Booking></Booking>
+          </PrivateRoute>
+        ),
+      },
+    ],
+  },
+
+  {
+    path: "/contact",
+    Component: Contact,
+  },
+  {
+path:'/about',
+Component:About
+  },
+  {
+    path:'/destinations',
+    Component:Destinations
+  },
+  {
+    path: "/auth",
+    Component: AuthLayout,
+    children: [
+      {
+        index: true,
+        Component: Login,
+      },
+      {
+        path: "register",
+        Component: Register,
+      },
+    ],
+  },
+  {
+    path: "/*",
+    Component: Error,
+  },
 ]);
 
 export default router;

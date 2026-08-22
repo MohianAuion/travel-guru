@@ -59,13 +59,12 @@ const Contact = () => {
           </p>
         </div>
 
-        {/* Content Grid */}
+        {/* Contact section*/}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-          
-          {/* Left Column: Contact Info & Social Links */}
+          {/*  */}
           <div className="flex flex-col gap-6 h-full justify-between">
             
-            {/* Contact Information Card */}
+            {/* Contact Info*/}
             <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
               <h3 className="text-2xl font-bold text-gray-800 mb-6">
                 Contact Info
@@ -120,7 +119,7 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Social Links Card - Vertical Line by Line */}
+            {/* Social Links */}
             <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
               <h4 className="text-2xl font-bold text-gray-800 mb-4">
                 Find Us On
@@ -149,18 +148,24 @@ const Contact = () => {
 
           </div>
 
-          {/* Right Column: Map Image */}
-          <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100 min-h-[350px] lg:min-h-full">
-            <img
-              className="w-full h-full object-cover"
-              src={mapImg}
-              alt="Travel Guru location map"
-            />
-          </div>
+{/* map image */}
+<div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100 min-h-[350px] lg:min-h-full">
+  <a
+    href="https://www.google.com/maps/search/?api=1&query=Kallyanpur,Dhaka,Bangladesh"
+    className="block h-full"
+  >
+    <img
+      className="w-full h-full object-cover"
+      src={mapImg}
+      alt="Kallyanpur, Dhaka map"
+    />
+  </a>
+</div>
 
         </div>
       </main>
 
+{/* footer section */}
       <Footer></Footer>
     </div>
   );
