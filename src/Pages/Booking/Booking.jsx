@@ -1,120 +1,349 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router";
+
+const destinations = [
+  "Cox's Bazar",
+  "Sreemangal",
+  "Sajek",
+  "Sundarbans",
+];
 
 const Booking = () => {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    location: "",
+    destination: "",
+    from: "",
+    to: "",
+  });
+
+  const [showModal, setShowModal] = useState(false);
+
+  // Today's date
+  const today = new Date().toISOString().split("T")[0];
+
+  // Handle input
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  // Open confirmation modal
+  const handleBooking = (e) => {
+    e.preventDefault();
+
+    setShowModal(true);
+  };
+
+  // Final confirmation
+  const handleConfirm = () => {
+    setShowModal(false);
+
+    // Go to home page
+    navigate("/");
+  };
+
   return (
-    <div className="w-10/12 mx-auto mt-35">
+    <div className="min-h-screen flex items-center justify-center px-5 py-20">
 
-        <div className="flex justify-center items-center gap-24" >
-      {/* text */}
-      <div className="w-[40%] space-y-4">
-        <h2 className="text-6xl text-white font-bold">Cox's bazar</h2>
-        <p className="text-white text-lg">
-          Cox’s Bazar is a town on the southeast coast of Bangladesh. It’s known
-          for its very long, sandy beachfront, stretching from Sea Beach in the
-          north to Kolatoli Beach in the south. Aggameda Khyang monastery is
-          home to bronze statues and centuries-old Buddhist manuscripts. South
-          of town, the tropical rainforest of Himchari National Park has
-          waterfalls and many birds. North, sea turtles breed on nearby Sonadia
-          Island.
-        </p>
-      </div>
+      <div className="w-full max-w-5xl">
 
+        {/* Heading */}
+        <div className="text-center mb-10">
+          <p className="text-orange-400 uppercase tracking-[4px] text-sm font-semibold">
+            Travel With Us
+          </p>
 
-      {/* form */}
+          <h1 className="text-4xl md:text-5xl font-bold text-white mt-2">
+            Book Your Trip
+          </h1>
 
-      {/* Booking Form */}
-      <div className="bg-white rounded-sm p-4 w-[300px]">
-
-{/* name */}
-        <label className="block text-[10px] text-gray-500 mb-1">Name</label>
-
-          <input
-            type="text"
-           placeholder="type your name"
-            readOnly
-            className="w-full h-8 bg-gray-100 rounded-sm px-3 text-[11px] font-semibold text-black outline-none"
-          />
-
-          {/* email */}
-           <label className="block text-[10px] text-gray-500 mb-1">Email</label>
-
-          <input
-            type="text"
-           placeholder="enter your email"
-            readOnly
-            className="w-full h-8 bg-gray-100 rounded-sm px-3 text-[11px] font-semibold text-black outline-none"
-          />
-
-          {/* location */}
-           <label className="block text-[10px] text-gray-500 mb-1">Location</label>
-
-          <input
-            type="text"
-           placeholder="your location"
-            readOnly
-            className="w-full h-8 bg-gray-100 rounded-sm px-3 text-[11px] font-semibold text-black outline-none"
-          />
-      
-
-        {/* Destination */}
-       
-          <label className="block text-[10px] text-gray-500 mb-1">
-            Destination
-          </label>
-
-          <input
-            type="text"
-            value="Select your Destination"
-            readOnly
-            className="w-full h-8 bg-gray-100 rounded-sm px-3 text-[11px] font-semibold text-black outline-none"
-          />
-        
-
-        {/* From and To */}
-        <div className="flex gap-2 mb-3">
-          {/* From */}
-          <div className="w-1/2">
-            <label className="block text-[10px] text-gray-500 mb-1">From</label>
-
-            <div className="relative">
-              <input
-                type="text"
-                value="01/09"
-                readOnly
-                className="w-full h-8 bg-gray-100 rounded-sm px-3 text-[11px] font-semibold text-black outline-none"
-              />
-
-              <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs">
-                📅
-              </span>
-            </div>
-          </div>
-
-          {/* To */}
-          <div className="w-1/2">
-            <label className="block text-[10px] text-gray-500 mb-1">To</label>
-
-            <div className="relative">
-              <input
-                type="text"
-                value="12/09"
-                readOnly
-                className="w-full h-8 bg-gray-100 rounded-sm px-3 text-[11px] font-semibold text-black outline-none"
-              />
-
-              <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs">
-                📅
-              </span>
-            </div>
-          </div>
+          <p className="text-gray-300 mt-3 max-w-xl mx-auto">
+            Choose your destination and travel dates to start your next
+            unforgettable journey.
+          </p>
         </div>
 
-        {/* Booking Button */}
-        <button className="w-full h-8 bg-orange-400 hover:bg-orange-500 rounded-sm text-black text-[10px] font-medium">
-          Confirm Booking
-        </button>
+        {/* Booking Form */}
+        <form
+          onSubmit={handleBooking}
+          className="bg-white mb-12 rounded-2xl shadow-2xl p-6 md:p-8"
+        >
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+            {/* Name */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Your Name
+              </label>
+
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Enter your name"
+                required
+                className="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+              />
+            </div>
+
+            {/* Email */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Email
+              </label>
+
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter your email"
+                required
+                className="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+              />
+            </div>
+
+            {/* Location */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Your Location
+              </label>
+
+              <input
+                type="text"
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+                placeholder="Where are you from?"
+                required
+                className="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+              />
+            </div>
+
+            {/* Destination */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Destination
+              </label>
+
+              <select
+                name="destination"
+                value={formData.destination}
+                onChange={handleChange}
+                required
+                className="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm outline-none bg-white focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+              >
+                <option value="" disabled>
+                  Select your destination
+                </option>
+
+                {destinations.map((destination) => (
+                  <option key={destination} value={destination}>
+                    {destination}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* From */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                From
+              </label>
+
+              <input
+                type="date"
+                name="from"
+                value={formData.from}
+                min={today}
+                onChange={handleChange}
+                required
+                className="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+              />
+            </div>
+
+            {/* To */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                To
+              </label>
+
+              <input
+                type="date"
+                name="to"
+                value={formData.to}
+                min={formData.from || today}
+                onChange={handleChange}
+                required
+                className="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+              />
+            </div>
+
+          </div>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            className="w-full mt-7 h-12 bg-orange-400 hover:bg-orange-500 text-black font-semibold rounded-lg transition duration-200 shadow-md"
+          >
+            Review Booking
+          </button>
+
+        </form>
       </div>
-    </div>
+
+
+      {/* ================= MODAL ================= */}
+
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-5">
+
+          <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-6 md:p-8">
+
+            {/* Modal Header */}
+            <div className="text-center mb-6">
+
+              <p className="text-orange-500 text-sm font-semibold uppercase tracking-widest">
+                Almost There
+              </p>
+
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mt-1">
+                Confirm Your Booking
+              </h2>
+
+              <p className="text-gray-500 text-sm mt-2">
+                Please check your information before confirming.
+              </p>
+
+            </div>
+
+
+            {/* Personal Information */}
+            <div className="mb-5">
+
+              <h3 className="font-bold text-lg text-gray-800 border-b pb-2 mb-3">
+                Personal Information
+              </h3>
+
+              <div className="space-y-2 text-sm">
+
+                <div className="flex justify-between gap-4">
+                  <span className="text-gray-500">
+                    Name
+                  </span>
+
+                  <span className="font-semibold text-gray-800">
+                    {formData.name}
+                  </span>
+                </div>
+
+                <div className="flex justify-between gap-4">
+                  <span className="text-gray-500">
+                    Email
+                  </span>
+
+                  <span className="font-semibold text-gray-800">
+                    {formData.email}
+                  </span>
+                </div>
+
+                <div className="flex justify-between gap-4">
+                  <span className="text-gray-500">
+                    Location
+                  </span>
+
+                  <span className="font-semibold text-gray-800">
+                    {formData.location}
+                  </span>
+                </div>
+
+              </div>
+
+            </div>
+
+
+            {/* Trip Information */}
+            <div className="mb-6">
+
+              <h3 className="font-bold text-lg text-gray-800 border-b pb-2 mb-3">
+                Trip Information
+              </h3>
+
+              <div className="space-y-2 text-sm">
+
+                <div className="flex justify-between">
+                  <span className="text-gray-500">
+                    Destination
+                  </span>
+
+                  <span className="font-bold text-orange-500">
+                    {formData.destination}
+                  </span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span className="text-gray-500">
+                    Departure
+                  </span>
+
+                  <span className="font-semibold text-gray-800">
+                    {formData.from}
+                  </span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span className="text-gray-500">
+                    Return
+                  </span>
+
+                  <span className="font-semibold text-gray-800">
+                    {formData.to}
+                  </span>
+                </div>
+
+              </div>
+
+            </div>
+
+
+            {/* Buttons */}
+            <div className="flex gap-3">
+
+              {/* Cancel */}
+              <button
+                type="button"
+                onClick={() => setShowModal(false)}
+                className="w-1/2 h-11 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-100 transition"
+              >
+                Go Back
+              </button>
+
+              {/* Confirm */}
+              <button
+                type="button"
+                onClick={handleConfirm}
+                className="w-1/2 h-11 bg-orange-400 hover:bg-orange-500 rounded-lg font-semibold text-black transition"
+              >
+                Confirm Booking
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+      )}
+
     </div>
   );
 };

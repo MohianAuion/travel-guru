@@ -4,6 +4,8 @@ import { FaArrowRight } from "react-icons/fa";
 import coxsbazarImg from "../../assets/Rectangle 1.png";
 import sajekImg from "../../assets/Sajek.png";
 import sreemongolImg from "../../assets/Sreemongol.png";
+import sylhetimg from "../../assets/sylhet.png";
+import bandarbanImg from "../../assets/bandarban.png";
 import shundorbonImg from "../../assets/sundorbon.png";
 import { useState } from "react";
 import { Link } from "react-router";
@@ -22,14 +24,25 @@ const Home = () => {
     },
     {
       id: 3,
+      images: sreemongolImg,
+      title: "Sreemongol",
+    },
+    {
+      id: 4,
+      images: sylhetimg,
+      title: "Sylhet",
+    },
+    {
+      id: 5,
       images: shundorbonImg,
       title: "Shundarban",
     },
     {
-      id: 4,
-      images: sreemongolImg,
-      title: "Sreemongol",
+      id: 6,
+      images: bandarbanImg,
+      title: "Bandarban",
     },
+    
   ];
 
   const [currentPlace, setCurrentPlace] = useState(0);
@@ -49,11 +62,9 @@ const Home = () => {
       <div className="flex gap-10 items-center ">
         {/* text */}
         <div className="w-[40%] space-y-4">
-          <h2 className="text-6xl text-white font-bold">Cox's bazar</h2>
-          <p className="text-white text-lg">
-            Cox's Bazar is a city, fishing port, tourism centre and district
-            headquarters in southeastern Bangladesh. It is famous mostly for its
-            long natural sandy beach, and it ...
+          <h2 className="text-5xl text-white font-bold">Discover Bangladesh</h2>
+          <p className="text-gray-100 text-md font-normal leading-7">
+           Travel Guru is a Bangladesh-based travel agency dedicated to helping people discover the beauty, culture, history, and natural wonders of Bangladesh. From peaceful tea gardens and beautiful beaches to adventurous hills and the mysterious Sundarbans, we make it easier for you to explore every corner of our country.
           </p>
           <Link to='/booking' className="btn btn-warning">
            Booking<FaArrowRight></FaArrowRight>
