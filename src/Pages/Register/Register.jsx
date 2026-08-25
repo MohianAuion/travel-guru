@@ -6,7 +6,7 @@ import AuthContext from '../../Context/AuthContext';
 import Loader from '../Loader/Loader';
 
 const Register = () => {
-   const{ createUser, loginWithGoogle, authLoading}=use(AuthContext);
+   const{ createUser, loginWithGoogle, updateUser, authLoading}=use(AuthContext);
 const location=useLocation();
 console.log(location)
 const navigate=useNavigate();
@@ -21,8 +21,12 @@ const navigate=useNavigate();
     setSuccess(false);
     setError("");
 
+    const name=e.target.name.value;
+    const photo=e.target.photo.value;
     const email=e.target.email.value;
     const password=e.target.password.value;
+
+
 
     const passwordLength = /^.{8,}$/;
     const passwordCase = /^(?=.*[A-Z])(?=.*[a-z]).{8,}$/;
@@ -44,6 +48,10 @@ const navigate=useNavigate();
 
     createUser(email, password)
     .then(()=>{
+        return updateUser(name, photo);
+    })
+    .then(()=>{
+  
        setSuccess(true);
       navigate(location.state || "/", {replace: true})
 
@@ -91,21 +99,21 @@ const navigate=useNavigate();
               <fieldset className="fieldset">
                 <h1 className="text-3xl font-bold pb-4">Create an Account</h1>
 
-                {/* first name */}
-                <label className="label">First Name</label>
+                {/* name */}
+                <label className="label">Name</label>
                 <input
                   type="text"
                   className="input w-full"
-                  placeholder="firstName"
-                  name="firstName" required
+                  placeholder="user name"
+                  name="name" required
                 />
-                {/* last name */}
-                <label className="label">Last Name</label>
+                {/* photo URL */}
+                <label className="label">URL</label>
                 <input
                   type="text"
                   className="input w-full"
-                  placeholder="lastName"
-                  name="lastName" required
+                  placeholder="photo url"
+                  name="photo"
                 />
                 {/* email */}
                 <label className="label">Email</label>

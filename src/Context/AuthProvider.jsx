@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import AuthContext from './AuthContext';
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../Firebase/firebase.config';
+
+
+
 
 const googleProvider=new GoogleAuthProvider();
 
@@ -39,6 +42,17 @@ setLoading(false);
         
     }
 
+    // updateProfile
+    const updateUser=(name, photo)=>{
+        setAuthLoading(true);
+        return updateProfile(auth.currentUser,{
+            displayName:name,
+            photoURL:photo
+        }).finally(()=>{
+           setAuthLoading(false)
+        });
+    }
+
     // sendPasswordResetEmail
     const resetPassword=(email)=>{
         return sendPasswordResetEmail(auth, email);
@@ -70,6 +84,7 @@ const logOut=()=>{
         userLogin,
         loginWithGoogle,
         resetPassword,
+        updateUser,
         logOut,
     }
 

@@ -1,9 +1,11 @@
 import React, { use } from 'react';
 import logo from '../../assets/logo.png';
+import defaultUserImg from '../../assets/user.png';
 import { Link, NavLink } from 'react-router';
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch} from 'react-icons/fa';
 import AuthContext from '../../Context/AuthContext';
 import './Navbar.css'
+import { CgProfile } from 'react-icons/cg';
 
 const Navbar = ({light=false}) => {
 
@@ -60,10 +62,23 @@ const Navbar = ({light=false}) => {
   
 
      {/* button */}
-    <div>
+    <div className='flex items-center'>
+      <div>
+{
+  user? (
+    <img
+      src={user.photoURL || defaultUserImg}
+      alt={user.displayName}
+      className="w-10 h-10 rounded-full object-cover border-2 border-yellow-400"
+    />
+  )  : (<CgProfile className={`text-4xl ${light? '':'text-white'}`}></CgProfile>)
+}
+      </div>
+      <div>
        {
         user? <Link onClick={handleLogOut} to='/auth' className='btn btn-warning ml-7'>LogOut</Link>: <Link to='/auth' className='btn btn-warning ml-7'>LogIn</Link>
       }
+    </div>
     </div>
    </div>
     
