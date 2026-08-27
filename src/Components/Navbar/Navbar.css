@@ -1,8 +1,17 @@
- li a.active{
+li a.active{
     color:black;
-   border: 1px solid rgb(202, 201, 201);
-   border-radius: 3px;
-   background-color: rgb(247, 247, 247);
+    border: 1px solid rgb(202, 201, 201);
+    border-radius: 3px;
+    background-color: rgb(247, 247, 247);
     padding: 10px;
     font-weight: bold;
+}
+
+/* mobile only override */
+@media (max-width: 1023px) {
+  li a.active {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
 }
