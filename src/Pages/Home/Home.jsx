@@ -17,7 +17,7 @@ const Home = () => {
   };
 
   return (
-    <div className="w-11/12 lg:w-10/12 mx-auto mt-16 sm:mt-20 lg:mt-32 mb-12">
+    <div className="w-11/12 lg:w-10/12 mx-auto mt-16 sm:mt-20 lg:mt-32 pb-20">
 
       {/* main */}
       <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-10 lg:gap-12">
