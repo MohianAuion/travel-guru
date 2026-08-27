@@ -4,8 +4,13 @@ import { useNavigate } from "react-router";
 const destinations = [
   "Cox's Bazar",
   "Sreemangal",
-  "Sajek",
-  "Sundarbans",
+  "Sajek Valley",
+  "Sundarban",
+  "Debotakunda",
+  "Shada Pathor",
+  "Khoiyachori Waterfall",
+  "Kaptai Lake",
+  "Sat Gombuj Mosque"
 ];
 
 const Booking = () => {
@@ -22,7 +27,7 @@ const Booking = () => {
 
   const [showModal, setShowModal] = useState(false);
 
-  // Today's date
+  // today date
   const today = new Date().toISOString().split("T")[0];
 
   // Handle input
@@ -35,18 +40,18 @@ const Booking = () => {
     }));
   };
 
-  // Open confirmation modal
+  // handle booking
   const handleBooking = (e) => {
     e.preventDefault();
 
     setShowModal(true);
   };
 
-  // Final confirmation
+  // handleConfirm
   const handleConfirm = () => {
     setShowModal(false);
 
-    // Go to home page
+    // navigate to home
     navigate("/");
   };
 
@@ -55,7 +60,7 @@ const Booking = () => {
 
       <div className="w-full max-w-5xl">
 
-        {/* Heading */}
+        {/* heading */}
         <div className="text-center mb-10">
           <p className="text-orange-400 uppercase tracking-[4px] text-sm font-semibold">
             Travel With Us
@@ -71,7 +76,7 @@ const Booking = () => {
           </p>
         </div>
 
-        {/* Booking Form */}
+        {/* booking form */}
         <form
           onSubmit={handleBooking}
           className="bg-white mb-12 rounded-2xl shadow-2xl p-6 md:p-8"
@@ -79,7 +84,7 @@ const Booking = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-            {/* Name */}
+            {/* name */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Your Name
@@ -96,7 +101,7 @@ const Booking = () => {
               />
             </div>
 
-            {/* Email */}
+            {/* email */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Email
@@ -113,7 +118,7 @@ const Booking = () => {
               />
             </div>
 
-            {/* Location */}
+            {/* location */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Your Location
@@ -130,7 +135,7 @@ const Booking = () => {
               />
             </div>
 
-            {/* Destination */}
+            {/* destination */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Destination
@@ -155,7 +160,7 @@ const Booking = () => {
               </select>
             </div>
 
-            {/* From */}
+            {/* from */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 From
@@ -172,7 +177,7 @@ const Booking = () => {
               />
             </div>
 
-            {/* To */}
+            {/* to */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 To
@@ -191,7 +196,7 @@ const Booking = () => {
 
           </div>
 
-          {/* Submit */}
+          {/* submit */}
           <button
             type="submit"
             className="w-full mt-7 h-12 bg-orange-400 hover:bg-orange-500 text-black font-semibold rounded-lg transition duration-200 shadow-md"
@@ -203,14 +208,13 @@ const Booking = () => {
       </div>
 
 
-      {/* ================= MODAL ================= */}
+      {/* modal */}
 
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-5">
 
           <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-6 md:p-8">
 
-            {/* Modal Header */}
             <div className="text-center mb-6">
 
               <p className="text-orange-500 text-sm font-semibold uppercase tracking-widest">
@@ -228,7 +232,7 @@ const Booking = () => {
             </div>
 
 
-            {/* Personal Information */}
+            {/* info */}
             <div className="mb-5">
 
               <h3 className="font-bold text-lg text-gray-800 border-b pb-2 mb-3">
@@ -272,7 +276,7 @@ const Booking = () => {
             </div>
 
 
-            {/* Trip Information */}
+          
             <div className="mb-6">
 
               <h3 className="font-bold text-lg text-gray-800 border-b pb-2 mb-3">
@@ -316,10 +320,10 @@ const Booking = () => {
             </div>
 
 
-            {/* Buttons */}
+            {/* buttons */}
             <div className="flex gap-3">
 
-              {/* Cancel */}
+              {/* cancel */}
               <button
                 type="button"
                 onClick={() => setShowModal(false)}
@@ -328,7 +332,7 @@ const Booking = () => {
                 Go Back
               </button>
 
-              {/* Confirm */}
+              {/* confirm */}
               <button
                 type="button"
                 onClick={handleConfirm}

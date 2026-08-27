@@ -4,15 +4,18 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router";
 import AuthContext from "../../Context/AuthContext";
 import Loader from "../Loader/Loader";
+import { GoEye, GoEyeClosed } from "react-icons/go";
 
 const Login = () => {
   const { userLogin, loginWithGoogle, resetPassword, authLoading } =
     use(AuthContext);
+
   const location = useLocation();
   const navigate = useNavigate();
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const emailRef = useRef(null);
 
   const handleLogin = (e) => {
@@ -83,6 +86,11 @@ const Login = () => {
       });
   };
 
+  const handleShowPassword = (e) => {
+    e.preventDefault();
+    setShowPassword(!showPassword);
+  };
+
   if (authLoading) {
     return <Loader></Loader>;
   }
@@ -105,12 +113,25 @@ const Login = () => {
                   required
                 />
                 <label className="label">Password</label>
-                <input
-                  type="password"
-                  className="input w-full"
-                  placeholder="Password"
-                  name="password"
-                />
+                <div className="relative flex">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className="input w-full"
+                    placeholder="Password"
+                    name="password"
+                  />
+                  <button
+                    type="btn"
+                    onClick={handleShowPassword}
+                    className="absolute top-3 right-4 text-lg"
+                  >
+                    {showPassword ? (
+                      <GoEyeClosed></GoEyeClosed>
+                    ) : (
+                      <GoEye></GoEye>
+                    )}
+                  </button>
+                </div>
 
                 <div>
                   {error && (

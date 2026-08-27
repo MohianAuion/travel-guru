@@ -4,14 +4,18 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router";
 import AuthContext from "../../Context/AuthContext";
 import Loader from "../Loader/Loader";
+import { GoEye, GoEyeClosed } from "react-icons/go";
 
 const Register = () => {
-  const { createUser, loginWithGoogle, updateUser, authLoading } = use(AuthContext);
+  const { createUser, loginWithGoogle, updateUser, authLoading } =
+    use(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPasword] = useState(false);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -38,7 +42,9 @@ const Register = () => {
       setError("Password must be at least 8 characters long.");
       return;
     } else if (!passwordCase.test(password)) {
-      setError("Password must be at least 8 characters and contain at least one uppercase and one lowercase letter.");
+      setError(
+        "Password must be at least 8 characters and contain at least one uppercase and one lowercase letter.",
+      );
       return;
     } else if (!specialChar.test(password)) {
       setError("Password must contain at least one special character.");
@@ -77,6 +83,17 @@ const Register = () => {
       });
   };
 
+  //handle show password
+  const handleShowPassword = (e) => {
+    e.preventDefault();
+    setShowPassword(!showPassword);
+  };
+
+  const handleConfirmShowPassword = (e) => {
+    e.preventDefault();
+    setShowConfirmPasword(!showConfirmPassword);
+  };
+
   if (authLoading) {
     return <Loader />;
   }
@@ -88,7 +105,9 @@ const Register = () => {
           <div className="card-body px-5 py-6 sm:px-8 sm:py-8">
             <form onSubmit={handleRegister}>
               <fieldset className="fieldset">
-                <h1 className="text-2xl sm:text-3xl font-bold pb-4">Create an Account</h1>
+                <h1 className="text-2xl sm:text-3xl font-bold pb-4">
+                  Create an Account
+                </h1>
 
                 {/* Name */}
                 <label className="label">Name</label>
@@ -121,23 +140,47 @@ const Register = () => {
 
                 {/* Password */}
                 <label className="label">Password</label>
-                <input
-                  type="password"
-                  className="input w-full"
-                  placeholder="Enter a password"
-                  name="password"
-                  required
-                />
+                <div className="relative flex">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className="input w-full"
+                    placeholder="Password"
+                    name="password"
+                  />
+                  <button
+                    type="btn"
+                    onClick={handleShowPassword}
+                    className="absolute top-3 right-4 text-lg"
+                  >
+                    {showPassword ? (
+                      <GoEyeClosed></GoEyeClosed>
+                    ) : (
+                      <GoEye></GoEye>
+                    )}
+                  </button>
+                </div>
 
                 {/* Confirm Password */}
                 <label className="label">Confirm Password</label>
-                <input
-                  type="password"
-                  className="input w-full"
-                  placeholder="Confirm your password"
-                  name="confirmPassword"
-                  required
-                />
+                <div className="relative flex">
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    className="input w-full"
+                    placeholder="Password"
+                    name="password"
+                  />
+                  <button
+                    type="btn"
+                    onClick={handleConfirmShowPassword}
+                    className="absolute top-3 right-4 text-lg"
+                  >
+                    {showConfirmPassword ? (
+                      <GoEyeClosed></GoEyeClosed>
+                    ) : (
+                      <GoEye></GoEye>
+                    )}
+                  </button>
+                </div>
 
                 <div className="mt-2">
                   {success && (
@@ -150,7 +193,9 @@ const Register = () => {
                   )}
                 </div>
 
-                <button className="btn btn-warning mt-4 w-full">Create Account</button>
+                <button className="btn btn-warning mt-4 w-full">
+                  Create Account
+                </button>
               </fieldset>
 
               {/* Go to login */}
