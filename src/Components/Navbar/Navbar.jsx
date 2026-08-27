@@ -46,11 +46,11 @@ const Navbar = ({ light = false }) => {
   const handleLogOut = () => {
 
     logOut()
-      .then(result => {
-        console.log(result.user);
+      .then(() => {
+        
       })
-      .catch(error => {
-        console.log(error.message);
+      .catch(() => {
+        
       });
 
   };

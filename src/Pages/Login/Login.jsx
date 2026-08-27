@@ -15,7 +15,6 @@ const Login = () => {
   const [success, setSuccess] = useState(false);
   const emailRef = useRef(null);
 
-  // handleLogin
   const handleLogin = (e) => {
     e.preventDefault();
     setError("");
@@ -50,7 +49,6 @@ const Login = () => {
       });
   };
 
-  // handle forgot password
   const handleForgotPassword = (e) => {
     e.preventDefault();
     const email = emailRef.current.value;
@@ -74,33 +72,29 @@ const Login = () => {
       });
   };
 
-  // handle google login
-
   const handleGoogleLogIn = () => {
     loginWithGoogle()
       .then(() => {
         setError("");
-        navigate(location.state || '/',{replace:true})
-         
+        navigate(location.state || "/", { replace: true });
       })
       .catch(() => {
         setError("Unable to login with Google. Please try again.");
       });
   };
 
-  //  loading
   if (authLoading) {
     return <Loader></Loader>;
   }
 
   return (
-    <div className="w-10/12 mx-auto my-30">
-      <div className=" flex justify-center">
-        <div className="card bg-base-100 w-4/12 border border-gray-300 rounded-lg">
-          <div className="card-body">
+    <div className="w-11/12 sm:w-10/12 lg:w-8/12 xl:w-6/12 mx-auto my-12 sm:my-20 lg:my-30">
+      <div className="flex justify-center">
+        <div className="card bg-base-100 w-full max-w-md border border-gray-300 rounded-lg">
+          <div className="card-body px-5 py-6 sm:px-8 sm:py-8">
             <form onSubmit={handleLogin}>
               <fieldset className="fieldset">
-                <h1 className="text-3xl font-bold pb-4">Login</h1>
+                <h1 className="text-2xl sm:text-3xl font-bold pb-4">Login</h1>
                 <label className="label">Email</label>
                 <input
                   type="email"
@@ -117,17 +111,18 @@ const Login = () => {
                   placeholder="Password"
                   name="password"
                 />
-                {/* error && success  */}
+
                 <div>
                   {error && (
-                    <p className="text-red-500 text-xs  font-bold ">{error}</p>
+                    <p className="text-red-500 text-xs font-bold">{error}</p>
                   )}
                   {success && (
-                    <p className="text-green-500 text-xs  font-bold">
+                    <p className="text-green-500 text-xs font-bold">
                       you are successfully logged in!
                     </p>
                   )}
                 </div>
+
                 <div>
                   <button
                     onClick={handleForgotPassword}
@@ -137,12 +132,12 @@ const Login = () => {
                     Forgot password?
                   </button>
                 </div>
-                <button className="btn btn-warning mt-4">Login</button>
+
+                <button className="btn btn-warning mt-4 w-full">Login</button>
               </fieldset>
 
-              {/* go to register */}
               <div className="text-center pt-4">
-                <p className="font-medium">
+                <p className="font-medium text-sm sm:text-base">
                   Don't have any account?{" "}
                   <Link
                     to="/auth/register"
@@ -158,25 +153,23 @@ const Login = () => {
         </div>
       </div>
 
-      {/* orrrr */}
-      <div className="flex justify-center items-center gap-4 my-5">
-        <div className="h-px w-40 bg-gray-400"></div>
-
+      {/* divider */}
+      <div className="flex justify-center items-center gap-4 my-5 max-w-md mx-auto">
+        <div className="h-px flex-1 bg-gray-400"></div>
         <span className="text-sm text-black">Or</span>
-
-        <div className="h-px w-40 bg-gray-400"></div>
+        <div className="h-px flex-1 bg-gray-400"></div>
       </div>
 
-      {/* login with google */}
-      <div onClick={handleGoogleLogIn} className="flex justify-center">
-        <button className="btn btn-neutral btn-outline rounded-full w-90">
+      {/* social logins */}
+      <div className="flex flex-col items-center gap-3 max-w-md mx-auto">
+        <button
+          onClick={handleGoogleLogIn}
+          className="btn btn-neutral btn-outline rounded-full w-full"
+        >
           <FcGoogle className="text-xl"></FcGoogle> Continue with Google
         </button>
-      </div>
 
-      {/* login with Facebook */}
-      <div className="flex justify-center mt-3">
-        <button className="btn btn-info btn-outline  hover:text-white rounded-full w-90">
+        <button className="btn btn-info btn-outline hover:text-white rounded-full w-full">
           <FaFacebook className="text-xl"></FaFacebook> Continue with Facebook
         </button>
       </div>
