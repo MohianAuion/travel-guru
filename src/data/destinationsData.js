@@ -11,9 +11,9 @@ import kaptaiLake from "../assets/kaptaiLake.png";
 export const destinations = [
   {
     id: 1,
-    name: "Cox's Bazar",
-    location: "Cox's Bazar",
-    image: coxsBazarImg,
+    name: "Kaptai Lake",
+    location: "Rangamati",
+    image: kaptaiLake,
   },
   {
     id: 2,
@@ -59,8 +59,9 @@ export const destinations = [
   },
   {
     id: 9,
-    name: "Kaptai Lake",
-    location: "Rangamati",
-    image: kaptaiLake,
-  },
+    name: "Cox's Bazar",
+    location: "Cox's Bazar",
+    image: coxsBazarImg,
+  }
+  
 ];
