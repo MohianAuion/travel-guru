@@ -118,10 +118,10 @@ const Login = () => {
                     type={showPassword ? "text" : "password"}
                     className="input w-full"
                     placeholder="Password"
-                    name="password"
+                    name="password" required
                   />
                   <button
-                    type="btn"
+                    type="button"
                     onClick={handleShowPassword}
                     className="absolute top-3 right-4 text-lg"
                   >

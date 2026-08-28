@@ -15,7 +15,7 @@ const Register = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPasword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -91,7 +91,7 @@ const Register = () => {
 
   const handleConfirmShowPassword = (e) => {
     e.preventDefault();
-    setShowConfirmPasword(!showConfirmPassword);
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   if (authLoading) {
@@ -145,10 +145,10 @@ const Register = () => {
                     type={showPassword ? "text" : "password"}
                     className="input w-full"
                     placeholder="Password"
-                    name="password"
+                    name="password" required
                   />
                   <button
-                    type="btn"
+                    type="button"
                     onClick={handleShowPassword}
                     className="absolute top-3 right-4 text-lg"
                   >
@@ -167,10 +167,10 @@ const Register = () => {
                     type={showConfirmPassword ? "text" : "password"}
                     className="input w-full"
                     placeholder="Password"
-                    name="password"
+                    name="confirmPassword" required
                   />
                   <button
-                    type="btn"
+                    type="button"
                     onClick={handleConfirmShowPassword}
                     className="absolute top-3 right-4 text-lg"
                   >
