@@ -73,7 +73,6 @@ const logOut=()=>{
         setAuthLoading(false);
     })
 }
-    
 
 
     const authData={

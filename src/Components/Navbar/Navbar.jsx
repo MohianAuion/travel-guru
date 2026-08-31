@@ -11,7 +11,6 @@ const Navbar = ({ light = false }) => {
   const { user, logOut } = use(AuthContext);
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
   const links = (
@@ -34,23 +33,27 @@ const Navbar = ({ light = false }) => {
     </>
   );
 
-  // logout
+  // handle logout
   const handleLogOut = () => {
     logOut()
       .then(() => {})
       .catch(() => {});
   };
 
-  // handle search
+  // handle search bar
   const handleSearch = (e) => {
-    
     if (e.key === "Enter") {
       navigate("/destinations");
     }
   };
 
+  // handle toggle menu bar
+  const handleToggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
-    <div className="max-w-11/12 lg:max-w-10/12 mx-auto rounded-md">
+    <div className="max-w-11/12 lg:max-w-10/12 mx-auto">
       <div className="navbar flex items-center justify-between pt-5 gap-3">
         {/* logo image */}
         <div className="shrink-0">
@@ -66,13 +69,12 @@ const Navbar = ({ light = false }) => {
         {/* for desktop */}
 
         <div className="hidden lg:block">
+          {/* search bar */}
           {!light && (
             <div className="relative">
               <input
                 type="text"
                 placeholder="Search Destination"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
                 onKeyDown={handleSearch}
                 className="input pr-10 pl-9 w-full text-white font-semibold bg-gray-300/50"
               />
@@ -84,6 +86,7 @@ const Navbar = ({ light = false }) => {
           )}
         </div>
 
+        {/* links */}
         <div className="hidden lg:block">
           <ul
             className={`flex gap-10 font-medium ${
@@ -94,9 +97,9 @@ const Navbar = ({ light = false }) => {
           </ul>
         </div>
 
+        {/* user & login */}
         <div className="flex items-center gap-3">
-          {/* profile */}
-
+          {/* profile image */}
           <div>
             {user ? (
               <img
@@ -111,7 +114,7 @@ const Navbar = ({ light = false }) => {
             )}
           </div>
 
-          {/* login */}
+          {/* login button */}
 
           <div className="hidden lg:block">
             {user ? (
@@ -129,47 +132,41 @@ const Navbar = ({ light = false }) => {
             )}
           </div>
 
-          {/* menu */}
+          {/* for mobile */}
 
           <button
             className={`lg:hidden text-2xl ${
               light ? "text-black" : "text-white"
             }`}
-            onClick={() => setMenuOpen(!menuOpen)}
+            onClick={handleToggleMenu}
             aria-label="Toggle menu"
           >
-            {menuOpen ? <FaTimes /> : <FaBars />}
+            {menuOpen ? <FaTimes></FaTimes> : <FaBars></FaBars>}
           </button>
         </div>
       </div>
 
-      {/* for mobile */}
-
       {menuOpen && (
         <div className="lg:hidden bg-base-100 rounded-md shadow-md mt-2 p-4">
-          {/* search */}
+          {/* search bar */}
 
-          {!light && (
-            <div className="relative w-full mb-4">
-              <input
-                type="text"
-                placeholder="Search Destination"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                onKeyDown={handleSearch}
-                className="input pr-10 pl-9 w-full text-white font-semibold bg-gray-300/50"
-              />
+          <div className="relative w-full mb-4">
+            <input
+              type="text"
+              placeholder="Search Destination"
+              onKeyDown={handleSearch}
+              className="input pr-10 pl-9 w-full text-white font-semibold bg-gray-300/50"
+            />
 
-              <span className="absolute text-gray-500 top-1/2 -translate-y-1/2 right-3">
-                <FaSearch />
-              </span>
-            </div>
-          )}
+            <span className="absolute text-gray-500 top-1/2 -translate-y-1/2 right-3">
+              <FaSearch />
+            </span>
+          </div>
 
           <ul className="flex flex-col gap-4 font-medium text-black">
             {links}
 
-            {/* login */}
+            {/* login button */}
 
             <li>
               {user ? (
@@ -178,7 +175,6 @@ const Navbar = ({ light = false }) => {
                     handleLogOut();
                     setMenuOpen(false);
                   }}
-                  to="/auth"
                   className="btn btn-warning w-full"
                 >
                   LogOut

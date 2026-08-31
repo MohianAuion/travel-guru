@@ -72,6 +72,7 @@ const Register = () => {
       });
   };
 
+  // handle google login
   const handleGoogleLogin = () => {
     setError("");
     loginWithGoogle()
@@ -89,11 +90,13 @@ const Register = () => {
     setShowPassword(!showPassword);
   };
 
+  // handle confirm show pass
   const handleConfirmShowPassword = (e) => {
     e.preventDefault();
     setShowConfirmPassword(!showConfirmPassword);
   };
 
+  // loader
   if (authLoading) {
     return <Loader />;
   }
@@ -109,7 +112,7 @@ const Register = () => {
                   Create an Account
                 </h1>
 
-                {/* Name */}
+                {/* name */}
                 <label className="label">Name</label>
                 <input
                   type="text"
@@ -119,7 +122,7 @@ const Register = () => {
                   required
                 />
 
-                {/* Photo URL */}
+                {/* photo url */}
                 <label className="label">Photo URL</label>
                 <input
                   type="text"
@@ -128,7 +131,7 @@ const Register = () => {
                   name="photo"
                 />
 
-                {/* Email */}
+                {/* email */}
                 <label className="label">Email</label>
                 <input
                   type="email"
@@ -138,7 +141,7 @@ const Register = () => {
                   required
                 />
 
-                {/* Password */}
+                {/* password */}
                 <label className="label">Password</label>
                 <div className="relative flex">
                   <input
@@ -160,7 +163,7 @@ const Register = () => {
                   </button>
                 </div>
 
-                {/* Confirm Password */}
+                {/* confirm password */}
                 <label className="label">Confirm Password</label>
                 <div className="relative flex">
                   <input
@@ -198,7 +201,7 @@ const Register = () => {
                 </button>
               </fieldset>
 
-              {/* Go to login */}
+              {/* go to login */}
               <div className="text-center pt-4">
                 <p className="font-medium text-sm sm:text-base">
                   Already have an account?{" "}
@@ -216,14 +219,14 @@ const Register = () => {
         </div>
       </div>
 
-      {/* Divider */}
+      {/* divider */}
       <div className="flex justify-center items-center gap-4 my-5 max-w-md mx-auto">
         <div className="h-px flex-1 bg-gray-400"></div>
         <span className="text-sm text-black">Or</span>
         <div className="h-px flex-1 bg-gray-400"></div>
       </div>
 
-      {/* Social Logins */}
+      {/* social logins */}
       <div className="flex flex-col items-center gap-3 max-w-md mx-auto">
         <button
           onClick={handleGoogleLogin}

@@ -67,7 +67,7 @@ const Contact = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-stretch">
-          {/* left */}
+          {/* left side */}
           <div className="flex flex-col gap-6">
             {/* contact info */}
             <div className="bg-white rounded-2xl p-5 sm:p-6 md:p-8 border border-gray-100 shadow-sm">
@@ -182,9 +182,7 @@ const Contact = () => {
           <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100 h-72 sm:h-80 md:h-96 lg:h-auto">
             <a
               href="https://www.google.com/maps/search/?api=1&query=Kallyanpur,Dhaka,Bangladesh"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block h-full"
+              
             >
               <img
                 className="w-full h-full object-cover hover:scale-105 transition duration-500"

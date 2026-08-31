@@ -52,6 +52,7 @@ const Login = () => {
       });
   };
 
+  // handle forgot password
   const handleForgotPassword = (e) => {
     e.preventDefault();
     const email = emailRef.current.value;
@@ -75,6 +76,7 @@ const Login = () => {
       });
   };
 
+  // handle google login
   const handleGoogleLogIn = () => {
     loginWithGoogle()
       .then(() => {
@@ -86,11 +88,13 @@ const Login = () => {
       });
   };
 
+// handle show password
   const handleShowPassword = (e) => {
     e.preventDefault();
     setShowPassword(!showPassword);
   };
 
+  // loader
   if (authLoading) {
     return <Loader></Loader>;
   }

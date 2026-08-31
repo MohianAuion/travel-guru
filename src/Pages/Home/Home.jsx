@@ -6,10 +6,12 @@ import { destinations } from "../../data/destinationsData";
 const Home = () => {
   const [currentPlace, setCurrentPlace] = useState(0);
 
+  // handle right arrow
   const handleRightArrow = () => {
     setCurrentPlace((prev) => (prev + 1) % destinations.length);
   };
 
+  // handle left arrow
   const handleLeftArrow = () => {
     setCurrentPlace(
       (prev) => (prev - 1 + destinations.length) % destinations.length
@@ -62,15 +64,15 @@ const Home = () => {
                     overflow-hidden
                     rounded-2xl
 
-                    /* mobile */
+                    // mobile
                     w-[85%]
                     h-80
 
-                    /* tablet */
+                  //  tablet
                     sm:w-56
                     sm:h-80
 
-                    /* laptop */
+                  // laptop
                     lg:w-70
                     lg:h-100
 
@@ -109,6 +111,7 @@ const Home = () => {
       {/* arrows */}
       <div className="flex justify-center items-center mt-8 sm:mt-12 lg:mt-16 gap-4 sm:gap-5">
 
+{/* left arrow */}
         <button
           onClick={handleLeftArrow}
           aria-label="Previous destination"
@@ -117,6 +120,7 @@ const Home = () => {
           ❮
         </button>
 
+/right arrow
         <button
           onClick={handleRightArrow}
           aria-label="Next destination"

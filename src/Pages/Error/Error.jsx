@@ -17,16 +17,16 @@ const Error = () => {
           <div className="w-28 h-36 md:w-40 md:h-52 rounded-full border-[12px] md:border-[15px] border-gray-900 flex items-center justify-center overflow-hidden">
             <div className="relative w-full h-full bg-gray-100 flex flex-col items-center justify-end">
 
-              {/* Sun */}
+              {/* sun */}
               <div className="absolute top-7 md:top-10 w-6 h-6 md:w-8 md:h-8 rounded-full bg-yellow-400" />
 
-              {/* Mountains */}
+              {/* mountains */}
               <div className="w-full h-2/3 bg-gradient-to-t from-gray-500 via-gray-300 to-transparent clip-path-mountain" />
 
-              {/* Road */}
+              {/* road */}
               <div className="absolute bottom-0 w-10 h-20 bg-white rotate-[-12deg]" />
 
-              {/* Birds */}
+              {/* birds */}
               <div className="absolute top-14 text-gray-500 text-xs">
                 ˅ ˅
               </div>
@@ -39,26 +39,26 @@ const Error = () => {
           </span>
         </div>
 
-        {/* Heading */}
+        {/* heading */}
         <h1 className="text-3xl md:text-5xl font-bold text-gray-900">
          The Page Has Gone Off the   <span className="text-yellow-500">Map</span> 🗺️{" "}
        
         </h1>
 
-        {/* Small line */}
+        {/* small line */}
         <div className="w-14 h-1 bg-yellow-400 rounded-full mx-auto my-6" />
 
-        {/* Description */}
+        {/* description */}
         <p className="text-gray-500 text-base md:text-lg leading-7 max-w-md mx-auto">
           The page you’re looking for doesn’t exist
           <br />
           or has been moved.
         </p>
 
-        {/* Simple illustration */}
+        {/* simple illustration */}
         <div className="relative h-56 md:h-64 mt-8 mb-4">
 
-          {/* Clouds */}
+          {/* clouds */}
           <div className="absolute left-10 top-8 text-gray-100 text-5xl">
             ☁
           </div>
@@ -67,15 +67,15 @@ const Error = () => {
             ☁
           </div>
 
-          {/* Ground */}
+          {/* ground */}
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-80 h-24 bg-gray-50 rounded-[50%]" />
 
-          {/* Sign post */}
+          {/* sign post */}
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
 
             <div className="w-2 h-48 bg-gray-700 mx-auto rounded-full" />
 
-            {/* Signs */}
+            {/* signs */}
             <div className="absolute top-10 -left-16 w-32 h-10 border-2 border-gray-700 bg-white rounded-md rotate-[-5deg]" />
 
             <div className="absolute top-20 -left-20 w-36 h-10 bg-yellow-400 rounded-md flex items-center justify-end pr-3">
@@ -87,7 +87,7 @@ const Error = () => {
           </div>
         </div>
 
-        {/* Go Home Button */}
+        {/* go home button */}
         <Link
           to="/"
           className="inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-8 py-4 rounded-full transition duration-200"

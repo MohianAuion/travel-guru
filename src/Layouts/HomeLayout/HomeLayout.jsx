@@ -4,9 +4,11 @@ import { Outlet } from "react-router";
 import Navbar from "../../Components/Navbar/Navbar";
 
 const HomeLayout = () => {
+
   const backgroundImage = {
     backgroundImage: `url(${bgImg})`,
   };
+  
   return (
     <div
       className="min-h-screen bg-cover bg-center bg-no-repeat"
