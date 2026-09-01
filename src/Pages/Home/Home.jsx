@@ -120,7 +120,7 @@ const Home = () => {
           ❮
         </button>
 
-/right arrow
+{/* right arrow */}
         <button
           onClick={handleRightArrow}
           aria-label="Next destination"
